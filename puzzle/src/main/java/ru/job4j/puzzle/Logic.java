@@ -9,8 +9,13 @@ import java.util.Arrays;
  * //TODO add comments.
  *
  * @author Petr Arsentev (parsentev@yandex.ru)
- * @version $Id$
+ * @version $0.2$
  * @since 0.1
+ * Пазлы. Тестовое задание.
+ * Смысл игры в следующем.
+ * Черные блоки - это блоки. которые нельзя двигать и на них нельзя наступать.
+ * Белые кружки - это фишки, которые могут двигаться вверх, вниз, влево и вправо.
+ * Задача игрока переставить фишки в линию по вертикали или горизонтали.
  */
 public class Logic {
     private final int size;
@@ -99,10 +104,8 @@ public class Logic {
             if (table[index][index] == 1) {
                 if (monoHorizontal(table, index) || monoVertical(table, index))
                     result = true;
-                break;
             }
         }
-
         return result;
     }
 
