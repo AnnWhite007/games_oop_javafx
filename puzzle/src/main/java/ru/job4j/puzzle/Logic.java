@@ -83,6 +83,7 @@ public class Logic {
         }
         return result;
     }
+
     public static boolean monoHorizontal(int[][] board, int row) {
         boolean result = true;
         for (int index = 0; index < board.length; index++) {
@@ -102,8 +103,10 @@ public class Logic {
             //При любой выигрышной комбинации элементы всегда пересекают диагональ. Это дает нам возможность сократить количество проходов.
             //Мы определяем координаты элемента в диагонали и проверяет вертикальную линию и горизонтальную линию.
             if (table[index][index] == 1) {
-                if (monoHorizontal(table, index) || monoVertical(table, index))
+                if (monoHorizontal(table, index) || monoVertical(table, index)) {
                     result = true;
+                    break;
+                }
             }
         }
         return result;
