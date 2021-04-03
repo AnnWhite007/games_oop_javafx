@@ -12,27 +12,29 @@ import static org.junit.Assert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 public class LogicTest {
-    @Test
-    public void trueMove() throws FigureNotFoundException, OccupiedCellException {
+    @Test(expected = ImpossibleMoveException.class)
+    public void whenImposibleMove() throws FigureNotFoundException, OccupiedCellException {
         Logic logic = new Logic();
-        BishopBlack bishopBlack1 = new BishopBlack(Cell.C2);
-        logic.move(bishopBlack1.position(), Cell.D3);
-        assertThat(bishopBlack1.position(), is(Cell.D3));
+        BishopBlack bishopBlack = new BishopBlack(Cell.C2);
+        logic.add(bishopBlack);
+        logic.move(bishopBlack.position(), Cell.C3);
     }
 
-    @Test
-    public void whenOccupied() throws FigureNotFoundException, OccupiedCellException {
+    @Test(expected = OccupiedCellException.class)
+    public void whenOccupied() throws FigureNotFoundException, ImpossibleMoveException, OccupiedCellException {
         Logic logic = new Logic();
         BishopBlack bishopBlack1 = new BishopBlack(Cell.A1);
-        BishopBlack bishopBlack2 = new BishopBlack(Cell.D3);
-        logic.move(bishopBlack1.position(), Cell.B2);
-        assertThat(bishopBlack1.position(), is(Cell.B2));
+        BishopBlack bishopBlack2 = new BishopBlack(Cell.B2);
+        logic.add(bishopBlack1);
+        logic.add(bishopBlack2);
+        logic.move(bishopBlack1.position(), Cell.C3);
     }
 
-    @Test (expected = ImpossibleMoveException.class)
-    public void whenImposibleMove() {
+    @Test(expected = FigureNotFoundException.class)
+    public void whenNotFound() throws ImpossibleMoveException, OccupiedCellException, FigureNotFoundException {
         Logic logic = new Logic();
-        BishopBlack bishopBlack1 = new BishopBlack(Cell.A1);
-        logic.move(bishopBlack1.position(), Cell.A2);
+        BishopBlack bishopBlack = new BishopBlack(Cell.B3);
+        logic.add(bishopBlack);
+        logic.move(Cell.B1, Cell.D3);
     }
 }
